@@ -9,4 +9,19 @@ body {background: url(https://images.pexels.com/photos/1118873/pexels-photo-1118
 .btns {display: flex; justify-content: center; gap: 10px;}
 .btns button {background-color: transparent; border: 0; color: rgba(0,0,0, .6);}
 .btns button:hover, .btns button:active, .btns button:focus-visible {background-color: transparent; border: 0; text-decoration: underline; color: rgba(0,0,0, .4);}
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{background-color: transparent !important; border: 0 !important; text-decoration: underline; color: rgba(0,0,0, .4) !important;}
 .btns button:first-child{background-color: #f7b612; border-radius: 50px; padding: 10px 25px; color: #fff;}
+
+@media (max-width: 767px) {
+  .btns {flex-wrap: wrap; justify-content: start;}
+  .btns button {width: calc((100% - 10px) / 2); padding: 10px 20px;}
+}
+
+@media (max-width: 480px) {
+  .container .inWrap {width: 95%; padding: 40px 20px;}
+  .weather-box .tit {font-size: 26px;}
+  .weather-box h2 {font-size: 38px;}
+  .weather-box h2 span, .weather-box h3 {font-size: 18px;}
+  .btns {flex-wrap: wrap; justify-content: start; column-gap: 0;}
+  .btns button {width: calc(100% / 2); padding: 10px 20px; border-radius: 30px; font-size: 14px;}
+}
