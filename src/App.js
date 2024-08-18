@@ -14,7 +14,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 
 function App() {
   const API_KEY = process.env.REACT_APP_API_KEY;
-  console.log("내키값", API_KEY);
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
