@@ -18,7 +18,10 @@ function App() {
   const [city, setCity] = useState("");
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState("");
-  const cities = ["Paris", "New York", "London", "Busan"];
+  const [nowTime, setNowTime] = useState("");
+  const [sunrise, setSunrise] = useState(null);
+  const [sunset, setSunset] = useState(null);
+  const cities = ["Paris", "New York", "Canada", "Harbin"];
   const getCureentLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       let lat = position.coords.latitude;
@@ -28,27 +31,36 @@ function App() {
   };
   const getWeatherByCurrentLocation = async (lat, lon) => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&lang=kr`;
       setLoading(true);
       let response = await fetch(url);
       let data = await response.json();
       setWeather(data);
-      setLoading(false);
+      const localSunriseTime = calcUnixToLocalTime(data.sys.sunrise);
+      setSunrise(localSunriseTime);
+      const localSunsetTime = calcUnixToLocalTime(data.sys.sunset);
+      setSunset(localSunsetTime);
     } catch (err) {
       setApiError(err.message);
+    } finally {
       setLoading(false);
     }
   };
   const getWeatherByCity = async () => {
     try {
-      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`;
+      let url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&lang=kr`;
       setLoading(true);
       let response = await fetch(url);
       let data = await response.json();
       setWeather(data);
-      setLoading(false);
+      // 상태가 설정된 후에 sunrise와 sunset 시간을 계산
+      const localSunriseTime = calcUnixToLocalTime(data.sys.sunrise);
+      setSunrise(localSunriseTime);
+      const localSunsetTime = calcUnixToLocalTime(data.sys.sunset);
+      setSunset(localSunsetTime);
     } catch (err) {
       setApiError(err.message);
+    } finally {
       setLoading(false);
     }
   };
@@ -59,15 +71,39 @@ function App() {
       setCity(city);
     }
   };
+  const calcUnixToLocalTime = (unix) => {
+    const date = new Date(unix * 1000);
+    const hours = String(date.getHours()).padStart(2, "0");
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const formattedTime = `${hours}:${minutes}`;
+
+    return formattedTime;
+  };
+
+  const getCurrentDateTime = () => {
+    const now = new Date();
+
+    const month = String(now.getMonth() + 1);
+    const day = String(now.getDate()).padStart(2, "0");
+
+    const hours = String(now.getHours()).padStart(2, "0");
+    const minutes = String(now.getMinutes()).padStart(2, "0");
+
+    const formattedTime = `${month}/${day} ${hours}:${minutes}`;
+
+    return formattedTime;
+  };
   useEffect(() => {
     if (city === "") {
       setLoading(true);
       getCureentLocation();
+      setNowTime(getCurrentDateTime());
     } else {
       setLoading(true);
       getWeatherByCity();
     }
   }, [city]);
+
   return (
     <div>
       {loading ? (
@@ -83,12 +119,17 @@ function App() {
       ) : !apiError ? (
         <div className="container">
           <div className="inWrap">
-            <WeatherBox weather={weather} />
             <WeatherButton
               cities={cities}
               setCity={setCity}
               handleCityChange={handleCityChange}
               selectedCity={city}
+            />
+            <WeatherBox
+              weather={weather}
+              nowTime={nowTime}
+              sunrise={sunrise}
+              sunset={sunset}
             />
           </div>
         </div>

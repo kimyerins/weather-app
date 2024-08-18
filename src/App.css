@@ -1,11 +1,17 @@
 body {background: url(https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?cs=srgb&dl=pexels-jplenio-1118873.jpg&fm=jpg) no-repeat; background-size: cover; height: 100vh;}
 
 .container {height: 100vh; display: flex; justify-content: center; align-items: center; flex-direction: column;}
-.container .inWrap {width: 90%; padding: 50px 30px; border: 1px solid #fff; background-color: rgba(255,255,255, .6); border-radius: 30px;}
-.weather-box {margin-bottom: 40px; text-align: center;}
-.weather-box .tit {font-size: 30px; font-weight: 800; margin-bottom: 20px;}
-.weather-box h2 {font-size: 45px; font-weight: 900; margin-bottom: 0;}
-.weather-box h2 span, .weather-box h3 {font-size: 20px; font-weight: 400; margin-bottom: 0; line-height: 1;}
+.container .inWrap {width: 90%; height: 90vh; overflow-y: scroll; padding: 50px 30px; border: 1px solid #fff; background-color: rgba(255,255,255, .6); border-radius: 30px;}
+.weather-box {margin-top: 40px; position: relative;}
+.weather-box .tit {font-size: 30px; font-weight: 800;}
+.weather-box h2 {font-size: 45px; font-weight: 900; margin-bottom: 0; margin: 20px 0;}
+.weather-box h2 span {display: inline-block; padding-left: 20px; color: #777;}
+.weather-box h2 span {font-size: 20px; font-weight: 400; margin-bottom: 0; line-height: 1;}
+.weather-box .date {font-size: 18px; margin-bottom: 0; font-weight: 500; color: #555;}
+.weather-box .imgbox {position: absolute; right: 0; top: 0;}
+.weather-box .imgbox span {display: block; text-align: center;}
+.sub-weather {display: flex; gap: 15px; flex-wrap: wrap; margin-top: 40px;}
+.sub-weather .infobox {width: calc((100% - 15px) / 2); text-align: center; background-color: rgba(247, 182, 18, .5); padding: 20px; border-radius: 20px;}
 .btns {display: flex; justify-content: center; gap: 10px;}
 .btns button {background-color: transparent; border: 0; color: rgba(0,0,0, .6);}
 .btns button:hover, .btns button:active, .btns button:focus-visible {background-color: transparent; border: 0; text-decoration: underline; color: rgba(0,0,0, .4);}
