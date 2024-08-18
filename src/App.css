@@ -10,7 +10,7 @@ body {background: url(https://images.pexels.com/photos/1118873/pexels-photo-1118
 .btns button {background-color: transparent; border: 0; color: rgba(0,0,0, .6);}
 .btns button:hover, .btns button:active, .btns button:focus-visible {background-color: transparent; border: 0; text-decoration: underline; color: rgba(0,0,0, .4);}
 .btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active{background-color: transparent !important; border: 0 !important; text-decoration: underline; color: rgba(0,0,0, .4) !important;}
-.btns button:first-child{background-color: #f7b612; border-radius: 50px; padding: 10px 25px; color: #fff;}
+.btns button.active{background-color: #f7b612 !important; text-decoration: none; border-radius: 50px; padding: 10px 25px; color: #fff !important;}
 
 @media (max-width: 767px) {
   .btns {flex-wrap: wrap; justify-content: start;}
